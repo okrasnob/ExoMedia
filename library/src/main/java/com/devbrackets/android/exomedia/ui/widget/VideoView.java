@@ -396,6 +396,7 @@ public class VideoView extends RelativeLayout {
      * If a video is currently in playback, it will be paused
      */
     public void pause() {
+        setTrack(ExoMedia.RendererType.CLOSED_CAPTION, 0);
         audioFocusHelper.abandonFocus();
         videoViewImpl.pause();
         setKeepScreenOn(false);

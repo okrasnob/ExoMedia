@@ -500,7 +500,7 @@ public abstract class VideoControls extends RelativeLayout {
      * @param delay The delay in milliseconds to wait to start the hide animation
      */
     public void hideDelayed(long delay) {
-        hideDelay = delay;
+    /*    hideDelay = delay;
 
         if (delay < 0 || !canViewHide || isLoading) {
             return;
@@ -511,7 +511,7 @@ public abstract class VideoControls extends RelativeLayout {
             public void run() {
                 hide();
             }
-        }, delay);
+        }, delay);*/
     }
 
     /**

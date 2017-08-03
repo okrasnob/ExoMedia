@@ -330,8 +330,8 @@ public class ExoMediaPlayer implements ExoPlayer.EventListener {
         // Creates the track selection override
         int[] tracks = new int[] {index};
         TrackSelection.Factory factory = tracks.length == 1 ? new FixedTrackSelection.Factory() : adaptiveTrackSelectionFactory;
-        MappingTrackSelector.SelectionOverride selectionOverride = new MappingTrackSelector.SelectionOverride(factory, exoPlayerTrackIndex, tracks);
-
+        MappingTrackSelector.SelectionOverride selectionOverride = new MappingTrackSelector.SelectionOverride(factory, index, tracks);
+//= new MappingTrackSelector.SelectionOverride(FIXED_FACTORY, groupIndex, trackIndex)
         // Specifies the correct track to use
         trackSelector.setSelectionOverride(exoPlayerTrackIndex, trackGroupArray, selectionOverride);
     }
@@ -476,7 +476,7 @@ public class ExoMediaPlayer implements ExoPlayer.EventListener {
         stayAwake(wasHeld);
     }
 
-    protected int getExoPlayerTrackType(@NonNull RendererType type) {
+    protected int getExoPlayerTrackType2(@NonNull RendererType type) {
         switch (type) {
             case AUDIO:
                 return C.TRACK_TYPE_AUDIO;
@@ -490,6 +490,20 @@ public class ExoMediaPlayer implements ExoPlayer.EventListener {
 
         return C.TRACK_TYPE_UNKNOWN;
     }
+
+    protected int getExoPlayerTrackType(@NonNull RendererType type) {
+        MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
+        if (mappedTrackInfo == null) {
+            return C.TRACK_TYPE_UNKNOWN;
+        }
+        for (int i = 0; i < mappedTrackInfo.length; i++) {
+            if (player.getRendererType(i) == getExoPlayerTrackType2(type)) {
+                return i;
+            }
+        }
+        return C.TRACK_TYPE_UNKNOWN;
+    }
+
 
     protected void sendMessage(int renderType, int messageType, Object message) {
         sendMessage(renderType, messageType, message, false);
