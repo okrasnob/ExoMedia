@@ -4,14 +4,17 @@ apply plugin: 'com.novoda.bintray-release'
 
 def versionMajor = 4
 def versionMinor = 0
-def versionPatch = 3
+// Bloomberg, original '3'
+def versionPatch = 900
+
 
 def libraryGroupId = 'com.devbrackets.android'
 def libraryBaseName = 'exomedia'
 def libraryVersion = "${versionMajor}.${versionMinor}.${versionPatch}"
 
 ext {
-    exoPlayerVersion = "r2.4.3"
+    // Bloomberg, original "r2.4.3"
+    exoPlayerVersion = "r2.4.900"
 }
 
 dependencies {
